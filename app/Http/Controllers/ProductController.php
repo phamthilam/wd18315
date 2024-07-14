@@ -9,31 +9,31 @@ class ProductController extends Controller
 {
     // public, protected, private, default
 
-    public function showProduct(){
-        $data=[
-            [
-                'id'=> '1',
-                'name' =>'iphone'
-            ],
-            [
-                'id'=> '2',
-                'name' =>'iphone2'
-            ],
-        ];
-        return view('list-product')->with([
-            'listProduct' => $data
-        ]);
-        // return view('list-product', compact('data'));
-    }
-    public function getProduct($id, $name=''){
-        echo $id;
-        echo $name;
-    }
-    public function updateProduct(Request $request){
-        echo $request->id;
-        echo $request->name;
-    }
-    public function queryBuilder(){
+    // public function showProduct(){
+    //     $data=[
+    //         [
+    //             'id'=> '1',
+    //             'name' =>'iphone'
+    //         ],
+    //         [
+    //             'id'=> '2',
+    //             'name' =>'iphone2'
+    //         ],
+    //     ];
+    //     return view('list-product')->with([
+    //         'listProduct' => $data
+    //     ]);
+    //     // return view('list-product', compact('data'));
+    // }
+    // public function getProduct($id, $name=''){
+    //     echo $id;
+    //     echo $name;
+    // }
+    // public function updateProduct(Request $request){
+    //     echo $request->id;
+    //     echo $request->name;
+    // }
+    // public function queryBuilder(){
         // 1.lấy danh sách toàn bộ user 
         // $result= DB:: table('users')->get();
 
@@ -126,6 +126,59 @@ class ProductController extends Controller
         // ->delete();
         // xóa mềm soft delete()
 
+    // }
+    public function listProduct(){
+        $listPro=DB::table('product')->join('category','product.category_id','=','category.id')
+        -> select('product.id','product.name','product.price','product.view','category.name as namecate','category.id as idcate')
+        -> orderBy('view','desc')
+        ->get();
+        return view('product/list-pro')->with([
+            'listPro'=> $listPro
+        ]);
+
     }
-   
+   public function addProduct(){
+    $cate=DB::table('category')->select('id','name')->get();
+    return view('product/add-pro')->with([
+        'cate'=>$cate
+    ]);
+   }
+   public function addPostProduct(Request $req){
+    $data=[
+        'name'=>$req->name,
+        'price'=>$req->price,
+        'view'=>$req->view,
+        'category_id'=>$req->category,
+        'create_at'=>Carbon::now(),
+        'update_at'=>Carbon::now()
+    ];
+    DB::table('product')->insert($data);
+    return redirect()->route('product.listProduct');
+   }
+   public function deleteProduct($idPro){
+    DB::table('product')->where('id','=',$idPro)
+    ->delete();
+    return redirect()->route('product.listProduct');
+   }
+   public function updateProduct($idPro){
+    $cate=DB::table('category')->select('id','name')->get();
+    $pro=DB::table('product')->where('id','=',$idPro)->first();
+    return view('product/update-pro')->with([
+        'cate'=>$cate,
+        'pro'=>$pro
+    ]);
+
+   }
+   public function updatePostProduct(Request $req){
+    $data=[
+        'name'=>$req->name,
+        'price'=>$req->price,
+        'view'=>$req->view,
+        'category_id'=>$req->category,
+        'update_at'=>Carbon::now()
+    ];
+    DB::table('product')->where('id',$req->idPro)->update($data);
+    return redirect()->route('product.listProduct');
+   }
+  
 }

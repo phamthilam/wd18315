@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="{{route('users.addUsers')}}">them moi</a>
+    <a href="{{ route('users.addUsers')}}">theem moi</a>
     <table>
         <thead>
             <tr>
@@ -25,8 +25,11 @@
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->ten_donvi}} </td>
-                <td> <a href="{{ route('users.updateUser', $user->id)}}">sua</a>
-                <a href="{{route('users.deleteUser', $user->id)}}">xóa</a></td>
+                <td>
+                    <a href="{{route('users.deleteUsers', $user->id)}}">Xoa</a>
+                    <a href="{{route('users.updateUsers', $user->id)}}">sua</a>
+                    
+                </td>
             </tr>
             @endforeach
         </tbody>

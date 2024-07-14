@@ -6,15 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{route('users.updatePostUsers')}}" method='post'>
+    <form action="{{route('product.updatePostProduct')}}" method='post'>
         @csrf
-        <input type="hidden" name="idUser" value="{{$user->id }}">
+        <input type="hidden" name="idUser" value="{{$user->id}}">
         Ten: <input type="text" name="name" id="" value="{{$user->name}}"><br>
         email: <input type="text" name="email" id="" value="{{$user->email}}"><br>
         Phong ban:
         <select name="phongban" id="">
-            
-
             @foreach ($phongBan as $value)
     <option @if ($user->phongban_id === $value->id )
         selected
