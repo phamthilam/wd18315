@@ -8,11 +8,8 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    // php artisan migrate
-    public function up()
+    public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');// integer | unsigned |primary | auto increment
@@ -25,11 +22,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    // php artisan migrate:rollback/ reset
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('products');
     }

@@ -2,9 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-// use App\Http\Controllers\PhamThiLamController;
-// use App\Http\Controllers\UserController;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
 
 // GET, PUT, PATCH, POST, DELETE
 // base url: http://127.0.0.1:8000/test
@@ -13,9 +21,9 @@ use App\Http\Controllers\ProductController;
 //     echo '123';
 // });
 
-// Route::get('/',function () {
-//     echo 'trang chủ';
-// });
+Route::get('/',function () {
+    echo 'trang chủ';
+});
 
 // Route::get('list-products',[ProductController::class, 'showProduct']);
 
@@ -53,3 +61,4 @@ Route :: group(['prefix'=>'product', 'as'=>'product.'],function(){
 Route::get('test', function(){
     return view('admin.products.list-product');
 });
+
