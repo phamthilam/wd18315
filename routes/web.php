@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\admin\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -49,16 +50,29 @@ Route::get('/',function () {
 //     Route::post('update-users', [UserController::class,'updatePostUsers'])->name('updatePostUsers');
 // });
 
-Route :: group(['prefix'=>'product', 'as'=>'product.'],function(){
-    Route::get('list-pro',[ProductController::class,'listProduct'])->name('listProduct');
-    Route::get('add-pro',[ProductController::class,'addProduct'])->name('addProduct');
-    Route::post('add-pro',[ProductController::class,'addPostProduct'])->name('addPostProduct');
-    Route::get('delete-pro/{idPro}',[ProductController::class,'deleteProduct'])->name('deleteProduct');
-    Route::get('update-pro/{idPro}',[ProductController::class,'updateProduct'])->name('updateProduct');
-    Route::post('update-pro',[ProductController::class,'updatePostProduct'])->name('updatePostProduct');
+// Route :: group(['prefix'=>'product', 'as'=>'product.'],function(){
+//     Route::get('list-pro',[ProductController::class,'listProduct'])->name('listProduct');
+//     Route::get('add-pro',[ProductController::class,'addProduct'])->name('addProduct');
+//     Route::post('add-pro',[ProductController::class,'addPostProduct'])->name('addPostProduct');
+//     Route::get('delete-pro/{idPro}',[ProductController::class,'deleteProduct'])->name('deleteProduct');
+//     Route::get('update-pro/{idPro}',[ProductController::class,'updateProduct'])->name('updateProduct');
+//     Route::post('update-pro',[ProductController::class,'updatePostProduct'])->name('updatePostProduct');
     
-});
-Route::get('test', function(){
-    return view('admin.products.list-product');
+// });
+// Route::get('test', function(){
+//     return view('admin.products.list-product');
+// });
+Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
+    Route::group([
+        'prefix'=>'products',
+        'as'=>'products.'
+    ], function (){
+        Route::get('/', [ProductController::class, 'listProducts'])
+        ->name('listProducts');
+        Route::get('addpro', [ProductController::class, 'addProduct'])
+        ->name('addProduct');
+        Route::post('addpro', [ProductController::class, 'addPostProduct'])
+        ->name('addPostProduct');
+    });
 });
 

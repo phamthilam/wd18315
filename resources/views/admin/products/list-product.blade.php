@@ -11,66 +11,30 @@
 @section('content')
 <div class="p-4" style="min-height: 800px;">
                     <h4 class="text-primary mb-4">Danh sách sản phẩm</h4>
-                    <button class="btn btn-info">Thêm mới</button>
-                    <table class="table mt-3">
+                    <button class="btn btn-info" ><a href="{{route('admin.products.addProduct')}}">Thêm mới</a></button>
+                    <h1>XIN CHÀO CÁC BẠN</h1>
+                    <table border="1">
                         <thead>
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên sản phẩm</th>
-                                <th scope="col">Giá sản phẩm</th>
-                                <th scope="col">Mô tả</th>
-                                <th scope="col">Hành động</th>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>image</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Nokia 520</td>
-                                <td>15000000 vnđ</td>
-                                <td>
-                                    Điện thoại mới giá ổn
-                                </td>
-                                <td>
-                                    <button class="btn btn-warning">Sửa</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Nokia 520</td>
-                                <td>15000000 vnđ</td>
-                                <td>
-                                    Điện thoại mới giá ổn
-                                </td>
-                                <td>
-                                    <button class="btn btn-warning">Sửa</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Nokia 520</td>
-                                <td>15000000 vnđ</td>
-                                <td>
-                                    Điện thoại mới giá ổn
-                                </td>
-                                <td>
-                                    <button class="btn btn-warning">Sửa</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Nokia 520</td>
-                                <td>15000000 vnđ</td>
-                                <td>
-                                    Điện thoại mới giá ổn
-                                </td>
-                                <td>
-                                    <button class="btn btn-warning">Sửa</button>
-                                    <button class="btn btn-danger">Xóa</button>
-                                </td>
-                            </tr>
+                             @foreach ($listProduct as $key=>$value)
+                                <tr>
+                                    <td>{{$key+1}}</td>
+                                    <td>{{ $value->name}}</td>
+                                    <td>{{ $value->price}}</td>
+                                    <td>{{ $value->image}}</td>
+                                    <td>
+                                        <button class="btn btn-warning">Sửa</button>
+                                        <button class="btn btn-danger">Xóa</button>
+                                    </td>
+                                </tr>
+                                 @endforeach
+                
                         </tbody>
                     </table>
                 </div>
