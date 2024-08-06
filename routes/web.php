@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\ProductController;
-
+use App\Http\Controllers\AuthenController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,10 +64,17 @@ Route::get('/',function () {
 // Route::get('test', function(){
 //     return view('admin.products.list-product');
 // });
+
+Route::get('login',[AuthenController::class,'login'])->name('login');
+Route::post('login',[AuthenController::class,'postLogin'])->name('postLogin');
+Route::get('logout',[AuthenController::class,'logout'])->name('logout');
+Route::get('register',[AuthenController::class,'register'])->name('register');
+Route::post('register',[AuthenController::class,'postRegister'])->name('postRegister');
 Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
     Route::group([
         'prefix'=>'products',
-        'as'=>'products.'
+        'as'=>'products.',
+        'middleware'=>'checkAdmin'
     ], function (){
         Route::get('/', [ProductController::class, 'listProducts'])
         ->name('listProducts');
@@ -73,6 +82,26 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
         ->name('addProduct');
         Route::post('addpro', [ProductController::class, 'addPostProduct'])
         ->name('addPostProduct');
+        Route::get('{id}/deletepro',[ProductController::class,'deleteProduct'])
+        ->name('deleteProduct');
+        Route::get('detailpro/{id}',[ProductController::class,'detailProduct'])
+        ->name('detailProduct');
+        Route::get('updatepro/{id}',[ProductController::class,'updateProduct'])
+        ->name('updateProduct');
+        Route::patch('updatepro/{id}',[ProductController::class,'updatePatchProduct'])
+        ->name('updatePatchProduct');
     });
 });
+Route::group(['prefix'=>'users', 'as'=>'users.'], function(){
+        Route::get('dashboard', [DashboardController::class, 'dashboard'])
+        ->name('dashboard');
+        Route::post('dashboard', [DashboardController::class, 'searchProduct'])
+        ->name('searchProduct');
+        Route::get('detailProduct', [DashboardController::class, 'detailProduct'])
+        ->name('detailProduct');
+    });
 
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
